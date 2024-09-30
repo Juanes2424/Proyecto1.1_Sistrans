@@ -10,11 +10,11 @@ public abstract class Categoria {
 
     private String nombre;
     @Id
-    private Integer codigo;
+    private String codigo;
     private String descripcion;
     private String caracteristicas_de_almacenamiento;
 
-    public Categoria(String nombre, Integer codigo, String descripcion, String caracteristicas_de_almacenamiento) {
+    public Categoria(String nombre, String codigo, String descripcion, String caracteristicas_de_almacenamiento) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.descripcion = descripcion;
@@ -33,11 +33,11 @@ public abstract class Categoria {
         this.nombre = nombre;
     }
 
-    public Integer getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 

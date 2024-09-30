@@ -11,6 +11,7 @@ import uniandes.edu.co.proyecto.modelo.OrdenDeCompra;
 import uniandes.edu.co.proyecto.modelo.Sucursal;
 import uniandes.edu.co.proyecto.modelo.Proveedor;
 
+
 public interface OrdenDeCompraRepository extends JpaRepository<OrdenDeCompra, Integer> {
 
     @Modifying
