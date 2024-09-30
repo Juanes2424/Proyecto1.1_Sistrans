@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Sucursal")
-public abstract class Sucursal {
+public class Sucursal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

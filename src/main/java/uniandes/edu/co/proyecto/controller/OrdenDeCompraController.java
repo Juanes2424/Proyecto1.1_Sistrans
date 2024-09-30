@@ -19,7 +19,7 @@ public class OrdenDeCompraController {
     public ResponseEntity<String> anularOrdenDeCompra(@RequestBody String id) {
 
         try {
-            ordenDeCompraRepository.cambiarAnulado(null);
+            ordenDeCompraRepository.cambiarAnulado(id);
             return new ResponseEntity<String>("Orden De Compra pasa a anulada", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("Error al pasar a anulada", HttpStatus.INTERNAL_SERVER_ERROR);
