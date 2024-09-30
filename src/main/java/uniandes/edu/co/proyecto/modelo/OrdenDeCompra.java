@@ -1,13 +1,8 @@
 package uniandes.edu.co.proyecto.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import oracle.sql.DATE;
+import jakarta.persistence.*;
+import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "OrdenDeCompra")
@@ -18,8 +13,12 @@ public class OrdenDeCompra {
     private Integer id;
 
     private String estado;
-    private DATE fecha_creacion;
-    private DATE fecha_entrega;
+
+    @Column(name = "fecha_creacion", updatable = false) 
+    private Date fecha_creacion;
+
+    @Column(name = "fecha_entrega")
+    private Date fecha_entrega;
 
     @ManyToOne
     @JoinColumn(name = "sucursal", referencedColumnName = "id")
@@ -29,17 +28,22 @@ public class OrdenDeCompra {
     @JoinColumn(name = "proveedor", referencedColumnName = "nit")
     private Proveedor proveedor;
 
-    public OrdenDeCompra(String estado, DATE fecha_creacion, DATE fecha_entrega, Sucursal sucursal,
-            Proveedor proveedor) {
+    @OneToMany(mappedBy = "pk.id_orden", cascade = CascadeType.ALL)
+    private Set<InfoExtraOrden> detalles;
+
+    public OrdenDeCompra() {
+    }
+
+    public OrdenDeCompra(String estado, Date fecha_entrega, Sucursal sucursal, Proveedor proveedor) {
         this.estado = estado;
-        this.fecha_creacion = fecha_creacion;
         this.fecha_entrega = fecha_entrega;
         this.sucursal = sucursal;
         this.proveedor = proveedor;
     }
 
-    OrdenDeCompra() {
-        ;
+    @PrePersist
+    protected void onCreate() {
+        this.fecha_creacion = new Date(System.currentTimeMillis()); 
     }
 
     public Integer getId() {
@@ -58,19 +62,15 @@ public class OrdenDeCompra {
         this.estado = estado;
     }
 
-    public DATE getFecha_creacion() {
+    public Date getFecha_creacion() {
         return fecha_creacion;
     }
 
-    public void setFecha_creacion(DATE fecha_creacion) {
-        this.fecha_creacion = fecha_creacion;
-    }
-
-    public DATE getFecha_entrega() {
+    public Date getFecha_entrega() {
         return fecha_entrega;
     }
 
-    public void setFecha_entrega(DATE fecha_entrega) {
+    public void setFecha_entrega(Date fecha_entrega) {
         this.fecha_entrega = fecha_entrega;
     }
 
@@ -90,4 +90,11 @@ public class OrdenDeCompra {
         this.proveedor = proveedor;
     }
 
+    public Set<InfoExtraOrden> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(Set<InfoExtraOrden> detalles) {
+        this.detalles = detalles;
+    }
 }

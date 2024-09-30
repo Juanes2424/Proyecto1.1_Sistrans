@@ -1,10 +1,7 @@
 package uniandes.edu.co.proyecto.modelo;
 
 import java.io.Serializable;
-
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Embeddable
 public class InfoExtraOrdenPK implements Serializable {
@@ -17,12 +14,16 @@ public class InfoExtraOrdenPK implements Serializable {
     @JoinColumn(name = "id_orden", referencedColumnName = "id")
     private OrdenDeCompra id_orden;
 
+    // Constructor vacío requerido por JPA
+    public InfoExtraOrdenPK() {
+    }
+
     public InfoExtraOrdenPK(Producto codigo_barras_producto, OrdenDeCompra id_orden) {
-        super();
         this.codigo_barras_producto = codigo_barras_producto;
         this.id_orden = id_orden;
     }
 
+    // Getters y setters
     public Producto getCodigo_barras_producto() {
         return codigo_barras_producto;
     }
@@ -38,5 +39,4 @@ public class InfoExtraOrdenPK implements Serializable {
     public void setId_orden(OrdenDeCompra id_orden) {
         this.id_orden = id_orden;
     }
-
 }

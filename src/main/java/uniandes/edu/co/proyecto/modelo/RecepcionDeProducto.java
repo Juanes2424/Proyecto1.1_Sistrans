@@ -1,5 +1,7 @@
 package uniandes.edu.co.proyecto.modelo;
 
+import java.sql.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,7 +19,7 @@ public abstract class RecepcionDeProducto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
-    private DATE fecha_recepcion;
+    private Date fecha_recepcion;
 
     @ManyToOne
     @JoinColumn(name = "id_orden_compra", referencedColumnName = "id")
@@ -27,7 +29,7 @@ public abstract class RecepcionDeProducto {
     @JoinColumn(name = "id_bodega", referencedColumnName = "id")
     private Bodega id_bodega;
 
-    public RecepcionDeProducto(DATE fecha_recepcion, OrdenDeCompra id_orden_compra, Bodega id_bodega) {
+    public RecepcionDeProducto(Date fecha_recepcion, OrdenDeCompra id_orden_compra, Bodega id_bodega) {
         this.fecha_recepcion = fecha_recepcion;
         this.id_orden_compra = id_orden_compra;
         this.id_bodega = id_bodega;
@@ -45,11 +47,11 @@ public abstract class RecepcionDeProducto {
         this.id = id;
     }
 
-    public DATE getFecha_recepcion() {
+    public Date getFecha_recepcion() {
         return fecha_recepcion;
     }
 
-    public void setFecha_recepcion(DATE fecha_recepcion) {
+    public void setFecha_recepcion(Date fecha_recepcion) {
         this.fecha_recepcion = fecha_recepcion;
     }
 
