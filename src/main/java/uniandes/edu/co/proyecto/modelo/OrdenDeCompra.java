@@ -15,7 +15,8 @@ public abstract class OrdenDeCompra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    
+    private Integer id;
     private String estado;
     private DATE fecha_creacion;
     private DATE fecha_entrega;
@@ -39,11 +40,11 @@ public abstract class OrdenDeCompra {
         ;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

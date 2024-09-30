@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import uniandes.edu.co.proyecto.modelo.Sucursal;
 
-public interface SucursalRepository extends JpaRepository<Sucursal, String> {
+public interface SucursalRepository extends JpaRepository<Sucursal, Integer> {
 
         @Modifying
         @Transactional

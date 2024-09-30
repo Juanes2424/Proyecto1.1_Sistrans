@@ -14,7 +14,7 @@ public class Bodega {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Integer id;
     private String nombre;
     private Integer tamano_metros2;
 
@@ -32,11 +32,11 @@ public class Bodega {
         ;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

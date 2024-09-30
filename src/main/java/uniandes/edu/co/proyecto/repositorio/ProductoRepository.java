@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.Producto;
-import java.sql.*;
+import oracle.sql.DATE;
 
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
@@ -28,7 +28,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
             @Param("unidad_medida_presentacion") String unidadMedidaPresentacion,
             @Param("cantidad_empaque") Integer cantidadEmpaque,
             @Param("unidad_empaque") String unidadEmpaque,
-            @Param("fecha_expiracion") Date fechaExpiracion,
+            @Param("fecha_expiracion") DATE fechaExpiracion,
             @Param("categoria") String categoriaCodigo);
 
     @Modifying
@@ -42,7 +42,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
             @Param("unidad_medida_presentacion") String unidadMedidaPresentacion,
             @Param("cantidad_empaque") Integer cantidadEmpaque,
             @Param("unidad_empaque") String unidadEmpaque,
-            @Param("fecha_expiracion") Date fechaExpiracion,
+            @Param("fecha_expiracion") DATE fechaExpiracion,
             @Param("categoria") String categoriaCodigo);
 
     @Modifying

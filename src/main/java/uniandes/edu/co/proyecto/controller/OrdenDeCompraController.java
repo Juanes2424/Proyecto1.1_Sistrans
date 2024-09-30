@@ -16,7 +16,7 @@ public class OrdenDeCompraController {
     private OrdenDeCompraRepository ordenDeCompraRepository;
 
     @PostMapping("/ordendecompra/{id}/anulada")
-    public ResponseEntity<String> anularOrdenDeCompra(@RequestBody String id) {
+    public ResponseEntity<String> anularOrdenDeCompra(@RequestBody Integer id) {
 
         try {
             ordenDeCompraRepository.cambiarAnulado(id);
