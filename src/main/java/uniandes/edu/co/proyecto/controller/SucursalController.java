@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 public class SucursalController {
@@ -18,7 +20,7 @@ public class SucursalController {
     private SucursalRepository sucursalRepository;
 
     @PostMapping("/sucursal/new")
-    public ResponseEntity<String> postMethodName(@RequestBody Sucursal sucursal) {
+    public ResponseEntity<String> crearSucursal(@RequestBody Sucursal sucursal) {
 
         try {
             sucursalRepository.insertarSucursal(sucursal.getNombre(), sucursal.getTamano_metros(),
@@ -28,5 +30,4 @@ public class SucursalController {
             return new ResponseEntity<String>("Error al crear sucursal", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }
