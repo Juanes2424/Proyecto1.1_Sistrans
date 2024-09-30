@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import uniandes.edu.co.proyecto.modelo.Bodega;
 
-public interface BodegaRepository extends JpaRepository<Bodega, String> {
+public interface BodegaRepository extends JpaRepository<Bodega, Integer> {
         @Modifying
         @Transactional
         @Query(value = "DELETE FROM Bodega WHERE id =:id", nativeQuery = true)
@@ -17,7 +17,7 @@ public interface BodegaRepository extends JpaRepository<Bodega, String> {
         @Modifying
         @Transactional
         @Query(value = "INSERT INTO Bodega (id, nombre, tamano_metros2, sucursal) " +
-                        "VALUES (sq.nextval, :nombre, :tamano_metros2, :sucursal)", nativeQuery = true)
+                        "VALUES (sq3.nextval, :nombre, :tamano_metros2, :sucursal)", nativeQuery = true)
         void insertarBodega(@Param("nombre") String nombre,
                         @Param("tamano_metros2") Integer tamano_metros2, @Param("sucursal") String sucursal);
 

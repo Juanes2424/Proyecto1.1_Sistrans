@@ -15,16 +15,17 @@ public class Sucursal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     private String nombre;
     private Integer tamano_metros;
     private String direccion;
-    private Integer telefono;
+    private String telefono;
 
     @ManyToOne
     @JoinColumn(name = "codigo_ciudad", referencedColumnName = "codigo")
     private Ciudad codigo_ciudad;
 
-    public Sucursal(String nombre, Integer tamano_metros, String direccion, Integer telefono) {
+    public Sucursal(String nombre, Integer tamano_metros, String direccion, String telefono) {
         this.nombre = nombre;
         this.tamano_metros = tamano_metros;
         this.direccion = direccion;
@@ -67,11 +68,11 @@ public class Sucursal {
         this.direccion = direccion;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
