@@ -15,7 +15,7 @@ public abstract class Venta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Integer id;
     private DATE fecha_venta;
 
     @ManyToOne
@@ -36,11 +36,11 @@ public abstract class Venta {
         ;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

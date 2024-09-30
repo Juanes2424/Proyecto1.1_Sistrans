@@ -14,7 +14,7 @@ public abstract class Sucursal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Integer id;
     private String nombre;
     private Integer tamano_metros;
     private String direccion;
@@ -35,11 +35,11 @@ public abstract class Sucursal {
         ;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

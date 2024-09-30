@@ -12,7 +12,7 @@ public interface CiudadRepository extends JpaRepository<Ciudad, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO ciudades (nombre, codigo) VALUES(superandes.nextval, :nombre, :codigo)", nativeQuery = true)
-    void insertarCiudad(@Param("nombre") String nombre, @Param("codigo") String codigo);
+    @Query(value = "INSERT INTO Ciudad (nombre, codigo) VALUES(:nombre, superandes.nextval)", nativeQuery = true)
+    void insertarCiudad(@Param("nombre") String nombre);
 
 }
