@@ -15,7 +15,7 @@ public interface CategoriaRepository extends JpaRepository<Categoria, String> {
     Collection<Categoria> dCategoria();
 
     @Query(value = "SELECT * FROM Categorias WHERE id = :id", nativeQuery = true)
-    Categoria dCategoria(@Param("id") int id);
+    Categoria obtenerCategoria(@Param("id") int id);
 
     @Modifying
     @Transactional
