@@ -11,18 +11,20 @@ import oracle.sql.DATE;
 
 @Entity
 @Table(name = "OrdenDeCompra")
-public abstract class OrdenDeCompra {
+public class OrdenDeCompra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    
     private Integer id;
+
     private String estado;
     private DATE fecha_creacion;
     private DATE fecha_entrega;
+
     @ManyToOne
     @JoinColumn(name = "sucursal", referencedColumnName = "id")
     private Sucursal sucursal;
+
     @ManyToOne
     @JoinColumn(name = "proveedor", referencedColumnName = "nit")
     private Proveedor proveedor;

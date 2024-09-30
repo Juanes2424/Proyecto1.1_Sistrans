@@ -24,7 +24,7 @@ public class BodegaController {
 
         try {
             bodegaRepository.insertarBodega(bodega.getNombre(), bodega.getTamano_metros2(),
-                    bodega.getSucursal().toString());
+                    bodega.getSucursal().getId().toString());
             return new ResponseEntity<String>("Bodega creada exitosamente", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<String>("Error al crear bodega", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -35,9 +35,9 @@ public class BodegaController {
     public ResponseEntity<String> borrarSucursal(@PathVariable("id") String id) {
         try {
             bodegaRepository.borrarBodega(id);
-            return new ResponseEntity<String>("Exito borrar sucursal", HttpStatus.OK);
+            return new ResponseEntity<String>("Exito borrar bodega", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<String>("Error al borrar sucursal", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("Error al borrar bodega", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Ciudad")
-public abstract class Ciudad {
+public class Ciudad {
 
     @Id
     private Integer codigo;
