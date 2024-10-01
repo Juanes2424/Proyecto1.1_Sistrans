@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uniandes.edu.co.proyecto.modelo.InfoExtraOrden;
+
+import java.util.List;
 import uniandes.edu.co.proyecto.modelo.OrdenDeCompra;
-import uniandes.edu.co.proyecto.repositorio.InfoExtraOrdenRepository;
 import uniandes.edu.co.proyecto.repositorio.OrdenDeCompraRepository;
 import uniandes.edu.co.proyecto.repositorio.ProveedorRepository;
 import uniandes.edu.co.proyecto.repositorio.SucursalRepository;
@@ -23,9 +23,6 @@ public class OrdenDeCompraController {
     @Autowired
     private ProveedorRepository proveedorRepository;
 
-    @Autowired
-    private InfoExtraOrdenRepository infoExtraOrdenRepository;
-
     @PostMapping("ordendecompra/new/save")
     public ResponseEntity<String> crearOrdenDeCompra(@RequestBody OrdenDeCompra ordenDeCompra) {
         try {
@@ -36,20 +33,28 @@ public class OrdenDeCompraController {
             proveedorRepository.findById(ordenDeCompra.getProveedor().getNit())
                     .orElseThrow(() -> new IllegalArgumentException("Proveedor no encontrado"));
 
-            int id = ordenDeCompraRepository.insertarOrdenDeCompra("vigente",
+            ordenDeCompraRepository.insertarOrdenDeCompra("vigente",
                     ordenDeCompra.getFecha_creacion(), ordenDeCompra.getFecha_entrega(),
                     Long.valueOf(ordenDeCompra.getSucursal().getId()),
                     Long.valueOf(ordenDeCompra.getProveedor().getNit()));
 
             return new ResponseEntity<>("Orden de compra creada exitosamente", HttpStatus.CREATED);
-            // if (ordenDeCompra.getDetalles() != null) {
-            // for (InfoExtraOrden detalle : ordenDeCompra.getDetalles()) {
-            // infoExtraOrdenRepository.insertarInfoExtraOrden(
-            // detalle.getPk().getCodigo_barras_producto().getCodigo_barras().toString(),
-            // id, detalle.getCantidad(),
-            // detalle.getCosto_unitario_compra());
-            // }
-            // }
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al crear la orden de compra: " + e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("ordendecompra/details/save")
+    public ResponseEntity<String> detailsOrdenDeCompra(@RequestBody List<OrdenDeCompra> ordenDeCompra) {
+        try {
+
+            for (OrdenDeCompra item : ordenDeCompra) {
+                InfoExtraOrden
+            }
+
+            return new ResponseEntity<>("Orden de compra creada exitosamente", HttpStatus.CREATED);
 
         } catch (Exception e) {
             return new ResponseEntity<>("Error al crear la orden de compra: " + e.getMessage(),

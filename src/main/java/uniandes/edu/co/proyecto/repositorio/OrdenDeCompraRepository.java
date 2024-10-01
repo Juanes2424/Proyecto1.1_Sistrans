@@ -15,9 +15,9 @@ public interface OrdenDeCompraRepository extends JpaRepository<OrdenDeCompra, In
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO OrdenDeCommpra (id, estado, fecha_creacion, fecha_entrega, sucursal, proveedor) " +
-            "VALUES(sq5.nextval, :estado, :fecha_creacion, :fecha_entrega, :sucursal_id, :proveedor_id) RETURNING id", nativeQuery = true)
-    int insertarOrdenDeCompra(@Param("estado") String estado, @Param("fecha_creacion") Date fecha_creacion,
+    @Query(value = "INSERT INTO OrdenDeCompra (id, estado, fecha_creacion, fecha_entrega, sucursal, proveedor) " +
+            "VALUES(sq5.nextval, :estado, :fecha_creacion, :fecha_entrega, :sucursal_id, :proveedor_id)", nativeQuery = true)
+    void insertarOrdenDeCompra(@Param("estado") String estado, @Param("fecha_creacion") Date fecha_creacion,
             @Param("fecha_entrega") Date fecha_entrega, @Param("sucursal_id") Long sucursalId,
             @Param("proveedor_id") Long proveedorId);
 
