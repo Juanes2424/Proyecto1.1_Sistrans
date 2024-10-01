@@ -4,80 +4,98 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uniandes.edu.co.proyecto.modelo.OrdenDeCompra;
+import uniandes.edu.co.proyecto.repositorio.OrdenDeCompraRepository;
 
 import java.util.List;
 
-import uniandes.edu.co.proyecto.modelo.InfoExtraOrden;
-import uniandes.edu.co.proyecto.modelo.OrdenDeCompra;
-import uniandes.edu.co.proyecto.repositorio.InfoExtraOrdenRepository;
-import uniandes.edu.co.proyecto.repositorio.OrdenDeCompraRepository;
-import uniandes.edu.co.proyecto.repositorio.ProveedorRepository;
-import uniandes.edu.co.proyecto.repositorio.SucursalRepository;
-
 @RestController
+@RequestMapping("/ordendecompra")
 public class OrdenDeCompraController {
 
     @Autowired
     private OrdenDeCompraRepository ordenDeCompraRepository;
 
-    @Autowired
-    private SucursalRepository sucursalRepository;
+    @PostMapping("/new/save")
 
-    @Autowired
-    private ProveedorRepository proveedorRepository;
-
-    @Autowired
-    private InfoExtraOrdenRepository infoExtraOrdenRepository;
-
-    @PostMapping("ordendecompra/new/save")
     public ResponseEntity<String> crearOrdenDeCompra(@RequestBody OrdenDeCompra ordenDeCompra) {
         try {
-
-            sucursalRepository.findById(ordenDeCompra.getSucursal().getId())
-
-                    .orElseThrow(() -> new IllegalArgumentException("Sucursal no encontrada"));
-            proveedorRepository.findById(ordenDeCompra.getProveedor().getNit())
-                    .orElseThrow(() -> new IllegalArgumentException("Proveedor no encontrado"));
-
-            ordenDeCompraRepository.insertarOrdenDeCompra("vigente",
-                    ordenDeCompra.getFecha_creacion(), ordenDeCompra.getFecha_entrega(),
-                    Long.valueOf(ordenDeCompra.getSucursal().getId()),
-                    Long.valueOf(ordenDeCompra.getProveedor().getNit()));
-
+            ordenDeCompraRepository.save(ordenDeCompra); // Uso del método automático de JPA para insertar
             return new ResponseEntity<>("Orden de compra creada exitosamente", HttpStatus.CREATED);
-
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al crear la orden de compra: " + e.getMessage(),
+            return new ResponseEntity<>("Error al crear la orden de compra: ",
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping("ordendecompra/details/save")
-    public ResponseEntity<String> detailsOrdenDeCompra(@RequestBody List<InfoExtraOrden> infoExtra) {
+    @GetMapping("/{id}")
+    public ResponseEntity<OrdenDeCompra> obtenerOrdenDeCompraPorId(@PathVariable Integer id) {
         try {
-
-            for (InfoExtraOrden item : infoExtra) {
-                infoExtraOrdenRepository.insertarInfoExtraOrden(item.getPk().getCodigo_barras_producto().toString(),
-                        Integer.parseInt(item.getPk().getId_orden().toString()), item.getCantidad(),
-                        item.getCosto_unitario_compra());
+            OrdenDeCompra ordenDeCompra = ordenDeCompraRepository.findById(id).orElse(null);
+            if (ordenDeCompra != null) {
+                return new ResponseEntity<>(ordenDeCompra, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-
-            return new ResponseEntity<>("Orden de compra creada exitosamente", HttpStatus.CREATED);
-
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al crear la orden de compra: " + e.getMessage(),
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OrdenDeCompra>> obtenerTodasLasOrdenesDeCompra() {
+        try {
+            List<OrdenDeCompra> ordenesDeCompra = ordenDeCompraRepository.findAll();
+            return new ResponseEntity<>(ordenesDeCompra, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/{id}/edit")
+
+    public ResponseEntity<String> actualizarOrdenDeCompra(@PathVariable Integer id,
+            @RequestBody OrdenDeCompra ordenDeCompra) {
+        try {
+            OrdenDeCompra ordenExistente = ordenDeCompraRepository.findById(id).orElse(null);
+            if (ordenExistente != null) {
+                ordenExistente.setEstado(ordenDeCompra.getEstado());
+                ordenExistente.setFecha_entrega(ordenDeCompra.getFecha_entrega());
+                ordenDeCompraRepository.save(ordenExistente); // actualiza la orden de compra sin pasar por otras cosas
+                return new ResponseEntity<>("Orden de compra actualizada exitosamente", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Orden de compra no encontrada", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al actualizar la orden de compra: ",
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping("ordendecompra/{id}/anulada")
-    public ResponseEntity<String> anularOrdenDeCompra(@PathVariable Integer id) {
+    @DeleteMapping("/{id}/delete")
+
+    public ResponseEntity<String> eliminarOrdenDeCompra(@PathVariable Integer id) {
         try {
-            ordenDeCompraRepository.cambiarAnulado(id);
-            return new ResponseEntity<>("Orden de compra anulada exitosamente", HttpStatus.OK);
+            OrdenDeCompra ordenExistente = ordenDeCompraRepository.findById(id).orElse(null);
+            if (ordenExistente != null) {
+                ordenDeCompraRepository.deleteById(id);
+                return new ResponseEntity<>("Orden de compra eliminada exitosamente", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Orden de compra no encontrada", HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al anular la orden de compra: " + e.getMessage(),
+            return new ResponseEntity<>("Error al eliminar la orden de compra: ",
                     HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/estado/{estado}")
+    public ResponseEntity<List<OrdenDeCompra>> obtenerOrdenesDeCompraPorEstado(@PathVariable String estado) {
+        try {
+            List<OrdenDeCompra> ordenesDeCompra = ordenDeCompraRepository.obtenerOrdenesDeCompraPorEstado(estado);
+            return new ResponseEntity<>(ordenesDeCompra, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
