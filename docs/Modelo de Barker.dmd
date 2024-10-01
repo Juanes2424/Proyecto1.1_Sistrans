@@ -1,8 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="Modelo de Barker" id="647CD316-6B72-DA41-E785-D35482F0C736" version="3.5">
-<createdBy>asus</createdBy>
-<createdTime>2024-09-01 20:11:21 UTC</createdTime>
-<ownerDesignName>Modelo de Barker</ownerDesignName>
-<capitalNames>false</capitalNames>
-<designId>647CD316-6B72-DA41-E785-D35482F0C736</designId>
-</OSDM_Design>
