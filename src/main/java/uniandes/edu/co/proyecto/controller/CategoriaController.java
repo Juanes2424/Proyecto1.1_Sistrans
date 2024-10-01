@@ -8,7 +8,7 @@ import uniandes.edu.co.proyecto.modelo.Categoria;
 import uniandes.edu.co.proyecto.repositorio.CategoriaRepository;
 
 @RestController
-@RequestMapping("/categorias")
+@RequestMapping("")
 public class CategoriaController {
 
     @Autowired

@@ -14,13 +14,13 @@ public class InfoExtraOrdenPK implements Serializable {
     @JoinColumn(name = "id_orden", referencedColumnName = "id")
     private OrdenDeCompra id_orden;
 
-    // Constructor vacío requerido por JPA
-    public InfoExtraOrdenPK() {
-    }
-
     public InfoExtraOrdenPK(Producto codigo_barras_producto, OrdenDeCompra id_orden) {
         this.codigo_barras_producto = codigo_barras_producto;
         this.id_orden = id_orden;
+    }
+
+    InfoExtraOrdenPK() {
+        ;
     }
 
     // Getters y setters

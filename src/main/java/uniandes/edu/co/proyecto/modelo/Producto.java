@@ -9,7 +9,7 @@ import oracle.sql.DATE;
 
 @Entity
 @Table(name = "Producto")
-public abstract class Producto {
+public class Producto {
 
     private String nombre;
     private Integer precio_unitario;
@@ -20,14 +20,14 @@ public abstract class Producto {
     private String unidad_empaque;
     private DATE fecha_expiracion;
     @Id
-    private Integer codigo_barras;
+    private String codigo_barras;
     @ManyToOne
     @JoinColumn(name = "categoria", referencedColumnName = "codigo")
     private Categoria categoria;
 
     public Producto(String nombre, Integer precio_unitario, String presentacion, Integer cantidad_presentacion,
             String unidad_medida_presentacion, Integer cantidad_empaque, String unidad_empaque, DATE fecha_expiracion,
-            Integer codigo_barras, Categoria categoria) {
+            String codigo_barras, Categoria categoria) {
         this.nombre = nombre;
         this.precio_unitario = precio_unitario;
         this.presentacion = presentacion;
@@ -108,11 +108,11 @@ public abstract class Producto {
         this.fecha_expiracion = fecha_expiracion;
     }
 
-    public Integer getCodigo_barras() {
+    public String getCodigo_barras() {
         return codigo_barras;
     }
 
-    public void setCodigo_barras(Integer codigo_barras) {
+    public void setCodigo_barras(String codigo_barras) {
         this.codigo_barras = codigo_barras;
     }
 

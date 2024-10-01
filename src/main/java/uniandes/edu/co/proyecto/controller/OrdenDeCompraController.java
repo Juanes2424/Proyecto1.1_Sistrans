@@ -6,7 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import uniandes.edu.co.proyecto.modelo.InfoExtraOrden;
 import uniandes.edu.co.proyecto.modelo.OrdenDeCompra;
+import uniandes.edu.co.proyecto.repositorio.InfoExtraOrdenRepository;
 import uniandes.edu.co.proyecto.repositorio.OrdenDeCompraRepository;
 import uniandes.edu.co.proyecto.repositorio.ProveedorRepository;
 import uniandes.edu.co.proyecto.repositorio.SucursalRepository;
@@ -22,6 +25,9 @@ public class OrdenDeCompraController {
 
     @Autowired
     private ProveedorRepository proveedorRepository;
+
+    @Autowired
+    private InfoExtraOrdenRepository infoExtraOrdenRepository;
 
     @PostMapping("ordendecompra/new/save")
     public ResponseEntity<String> crearOrdenDeCompra(@RequestBody OrdenDeCompra ordenDeCompra) {
@@ -47,11 +53,13 @@ public class OrdenDeCompraController {
     }
 
     @PostMapping("ordendecompra/details/save")
-    public ResponseEntity<String> detailsOrdenDeCompra(@RequestBody List<OrdenDeCompra> ordenDeCompra) {
+    public ResponseEntity<String> detailsOrdenDeCompra(@RequestBody List<InfoExtraOrden> infoExtra) {
         try {
 
-            for (OrdenDeCompra item : ordenDeCompra) {
-                InfoExtraOrden
+            for (InfoExtraOrden item : infoExtra) {
+                infoExtraOrdenRepository.insertarInfoExtraOrden(item.getPk().getCodigo_barras_producto().toString(),
+                        Integer.parseInt(item.getPk().getId_orden().toString()), item.getCantidad(),
+                        item.getCosto_unitario_compra());
             }
 
             return new ResponseEntity<>("Orden de compra creada exitosamente", HttpStatus.CREATED);

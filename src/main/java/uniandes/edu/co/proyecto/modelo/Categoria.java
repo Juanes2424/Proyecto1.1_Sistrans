@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Categoria")
-public abstract class Categoria {
+public class Categoria {
 
     private String nombre;
     @Id

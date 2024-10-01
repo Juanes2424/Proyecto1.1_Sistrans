@@ -19,7 +19,7 @@ public class ProductoController {
     public ResponseEntity<String> crearProducto(@RequestBody Producto producto) {
         try {
             productoRepository.insertarProducto(
-                    producto.getCodigo_barras(),
+                    producto.getCodigo_barras().toString(),
                     producto.getNombre(),
                     producto.getPrecio_unitario(),
                     producto.getPresentacion(),
