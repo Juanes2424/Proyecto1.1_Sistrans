@@ -9,7 +9,7 @@ import uniandes.edu.co.proyecto.repositorio.ProductoRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-@RequestMapping("/productos")
+@RequestMapping("")
 public class ProductoController {
 
     @Autowired
@@ -35,7 +35,7 @@ public class ProductoController {
         }
     }
 
-    @PutMapping("/productos/{codigo_barras}/edit/save")
+    @PutMapping("/producto/{codigo_barras}/edit/save")
     public ResponseEntity<String> actualizarProducto(@PathVariable Integer codigo_barras,
             @RequestBody Producto producto) {
         try {
@@ -56,7 +56,7 @@ public class ProductoController {
         }
     }
 
-    @GetMapping("/productos/{codigo_barras}/delete")
+    @GetMapping("/producto/{codigo_barras}/delete")
     public ResponseEntity<String> eliminarProducto(@PathVariable Integer codigo_barras,
             @RequestBody Producto producto) {
         try {
