@@ -89,13 +89,4 @@ public class OrdenDeCompraController {
         }
     }
 
-    @GetMapping("/estado/{estado}")
-    public ResponseEntity<List<OrdenDeCompra>> obtenerOrdenesDeCompraPorEstado(@PathVariable String estado) {
-        try {
-            List<OrdenDeCompra> ordenesDeCompra = ordenDeCompraRepository.obtenerOrdenesDeCompraPorEstado(estado);
-            return new ResponseEntity<>(ordenesDeCompra, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }
