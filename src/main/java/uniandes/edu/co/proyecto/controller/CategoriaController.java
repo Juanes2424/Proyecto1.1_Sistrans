@@ -28,7 +28,7 @@ public class CategoriaController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/categoria/{id}/get")
     public ResponseEntity<Categoria> obtenerCategoriaPorId(@PathVariable int id) {
         try {
             Categoria categoria = categoriaRepository.obtenerCategoria(id);
@@ -42,7 +42,7 @@ public class CategoriaController {
         }
     }
 
-    @PutMapping("/{id}/edit")
+    @PutMapping("categoria/{id}/edit")
     public ResponseEntity<String> actualizarCategoria(@PathVariable int id, @RequestBody Categoria categoria) {
         try {
             categoriaRepository.actualizaRCategoria(
@@ -57,7 +57,7 @@ public class CategoriaController {
         }
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("categoria/{id}/delete")
     public ResponseEntity<String> eliminarCategoria(@PathVariable int id) {
         try {
             categoriaRepository.eliminarCategoria(id);
