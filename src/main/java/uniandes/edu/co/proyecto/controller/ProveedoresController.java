@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import uniandes.edu.co.proyecto.modelo.Proveedor;
@@ -17,20 +18,23 @@ public class ProveedoresController {
     @Autowired
     private ProveedorRepository proveedorRepository;
 
-    @PostMapping("/Proveedor/new/save")
+    @PostMapping("/proveedor/new/save")
     public ResponseEntity<String> proveedorGuardar(@RequestBody Proveedor proveedor) {
         try {
-            proveedorRepository.insertarProveedor(proveedor.getNit(), proveedor.getNombre(), proveedor.getDireccion(), proveedor.getNombre_contacto(), proveedor.getTelefono_contacto());
+            proveedorRepository.insertarProveedor(proveedor.getNit(), proveedor.getNombre(), proveedor.getDireccion(),
+                    proveedor.getNombre_contacto(), proveedor.getTelefono_contacto().toString());
             return new ResponseEntity<>("Proveedor creado exitosamente", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error al crear el proveedor", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping("/Proveedor/{id}/edit/save")
-    public ResponseEntity<String> proveedorEditarGuardar(@PathVariable("nit") Integer nit, @RequestBody Proveedor proveedor) {
+    @PutMapping("/proveedor/{nit}/edit/save")
+    public ResponseEntity<String> proveedorEditarGuardar(@PathVariable("nit") String nit,
+            @RequestBody Proveedor proveedor) {
         try {
-            proveedorRepository.actualizarProveedor(nit, proveedor.getNombre(), proveedor.getDireccion(), proveedor.getNombre_contacto(), proveedor.getTelefono_contacto());
+            proveedorRepository.actualizarProveedor(nit, proveedor.getNombre(), proveedor.getDireccion(),
+                    proveedor.getNombre_contacto(), proveedor.getTelefono_contacto().toString());
             return new ResponseEntity<>("Proveedor actualizado exitosamente", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error al actualizar el proveedor", HttpStatus.INTERNAL_SERVER_ERROR);

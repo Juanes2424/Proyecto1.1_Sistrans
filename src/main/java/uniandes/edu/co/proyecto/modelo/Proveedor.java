@@ -6,16 +6,16 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Proveedor")
-public abstract class Proveedor {
+public class Proveedor {
 
     @Id
-    private Integer nit;
+    private String nit;
     private String nombre;
     private String direccion;
     private String nombre_contacto;
-    private Integer telefono_contacto;
+    private String telefono_contacto;
 
-    public Proveedor(Integer nit, String nombre, String direccion, String nombre_contacto, Integer telefono_contacto) {
+    public Proveedor(String nit, String nombre, String direccion, String nombre_contacto, String telefono_contacto) {
         this.nit = nit;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -27,11 +27,11 @@ public abstract class Proveedor {
         ;
     }
 
-    public Integer getNit() {
+    public String getNit() {
         return nit;
     }
 
-    public void setNit(Integer nit) {
+    public void setNit(String nit) {
         this.nit = nit;
     }
 
@@ -59,11 +59,11 @@ public abstract class Proveedor {
         this.nombre_contacto = nombre_contacto;
     }
 
-    public Integer getTelefono_contacto() {
+    public String getTelefono_contacto() {
         return telefono_contacto;
     }
 
-    public void setTelefono_contacto(Integer telefono_contacto) {
+    public void setTelefono_contacto(String telefono_contacto) {
         this.telefono_contacto = telefono_contacto;
     }
 }
