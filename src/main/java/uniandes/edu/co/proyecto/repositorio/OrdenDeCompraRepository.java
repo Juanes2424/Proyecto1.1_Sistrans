@@ -7,12 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.OrdenDeCompra;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface OrdenDeCompraRepository extends JpaRepository<OrdenDeCompra, Integer> {
 
         @Query(value = "SELECT * FROM OrdenDeCompra", nativeQuery = true)
-        List<OrdenDeCompra> obtenerTodasLasOrdenesDeCompra();
+        Collection<OrdenDeCompra> obtenerTodasLasOrdenesDeCompra();
 
         @Query(value = "SELECT * FROM OrdenDeCompra WHERE id = :id", nativeQuery = true)
         OrdenDeCompra obtenerOrdenDeCompraPorId(@Param("id") Integer id);
@@ -38,5 +39,5 @@ public interface OrdenDeCompraRepository extends JpaRepository<OrdenDeCompra, In
         void eliminarOrdenDeCompra(@Param("id") Integer id);
 
         @Query(value = "SELECT * FROM OrdenDeCompra WHERE estado = :estado", nativeQuery = true)
-        List<OrdenDeCompra> obtenerOrdenesDeCompraPorEstado(@Param("estado") String estado);
+        Collection<OrdenDeCompra> obtenerOrdenesDeCompraPorEstado(@Param("estado") String estado);
 }
