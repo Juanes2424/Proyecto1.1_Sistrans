@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.modelo.OrdenDeCompra;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface OrdenDeCompraRepository extends JpaRepository<OrdenDeCompra, Integer> {
 
